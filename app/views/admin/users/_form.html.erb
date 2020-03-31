@@ -1,0 +1,50 @@
+<%= semantic_form_for [:admin, @user], builder: ActiveAdmin::FormBuilder do |f| %>
+  <%= f.semantic_errors %>
+  <%= f.inputs "Details" do %>
+    <%= f.input :email %>
+    <%= f.input :name %>
+    <%= f.input :identity_number %>
+    <%= f.input :password %>
+    <%= f.input :date_of_birth, as: :datepicker, 
+        datepicker_options: {
+          min_date: 100.years.ago.to_date,
+          max_date: DateTime.now.to_date
+        } %>
+    <%= f.input :gender %>
+    <%= f.input :cellphone %>
+    <%= f.input :other_phone %>
+    <%= f.input :fence_diameter %>
+    <%= f.input :within_fence %>
+    <%= f.input :lat, input_html: { readonly: true } %>
+    <%= f.input :lng, input_html: { readonly: true } %>
+    <div id="map" style="height: 300px; width: 100%;"></div>
+  <% end %>
+  <%= f.actions %>
+<% end %>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO9XurNLrIlvqByVH5AlChjHJLcC5ujxk&callback=initMap"
+async defer></script>
+<script type="text/javascript">
+  var map, marker, lat, lng;
+
+  lat = document.getElementById('user_lat');
+  lng = document.getElementById('user_lng');
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.901112, lng: -56.164532},
+      zoom: 13
+    });
+
+    map.addListener('click', function(position) {
+      if(marker) marker.setMap(null);
+      
+      marker = new google.maps.Marker({
+        position: { lat: position.latLng.lat(), lng: position.latLng.lng() },
+        map: map
+      });
+
+      lat.value = position.latLng.lat();
+      lng.value = position.latLng.lng();
+    });
+  }
+</script>

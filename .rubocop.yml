@@ -1,0 +1,36 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+AllCops:
+  Exclude:
+    - "node_modules/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - ".git/**/*"
+    - "config/initializers/**/*"
+    - "db/schema.rb"
+    - "db/seeds.rb"
+    - "bin/**/*"
+    - "config/application.rb"
+    - "config/environments/**/*"
+Layout/LineLength:
+  AutoCorrect: true
+  Max: 100
+  Enabled: true
+Style/Documentation:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Metrics/MethodLength:
+  ExcludedMethods:
+    - "change"
+RSpec/RepeatedExampleGroupBody:
+  Enabled: false
+RSpec/NamedSubject:
+  Enabled: false
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true

@@ -1,0 +1,59 @@
+<%= semantic_form_for [:admin, @heartbeat], builder: ActiveAdmin::FormBuilder do |f| %>
+  <%= f.semantic_errors %>
+  <%= f.inputs "Details" do %>
+    <%= f.input :user %>
+    <%= f.input :time, as: :datepicker %>
+    <%= f.input :fence_diameter %>
+    <%= f.input :within_fence %>
+    <%= f.input :lat, input_html: { readonly: true } %>
+    <%= f.input :lng, input_html: { readonly: true } %>
+    <div id="map" style="height: 300px; width: 100%;"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO9XurNLrIlvqByVH5AlChjHJLcC5ujxk&callback=initMap"
+    async defer></script>
+    <script type="text/javascript">
+      var map, marker, userHouse, user, lat, lng;
+
+      lat = document.getElementById('heartbeat_lat');
+      lng = document.getElementById('heartbeat_lng');
+      
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: { lat: -34.901112, lng: -56.164532 },
+          zoom: 13
+        });
+
+        map.addListener('click', function(position) {
+          if(marker) marker.setMap(null);
+          
+          marker = new google.maps.Marker({
+            position: { lat: position.latLng.lat(), lng: position.latLng.lng() },
+            map: map,
+            label: "💛"
+          });
+
+          lat.value = position.latLng.lat();
+          lng.value = position.latLng.lng();
+        });
+
+        <% if @heartbeat.user %>
+          userHouse = new google.maps.Marker({
+            position: { lat: <%= @heartbeat.user.lat %>, lng: <%= @heartbeat.user.lng %> },
+            map: map,
+            title: 'User default location',
+            label: "🏠"
+          });
+        <% end %>
+
+        <% if @heartbeat.lat && @heartbeat.lng %>
+          marker = new google.maps.Marker({
+            position: { lat: <%= @heartbeat.lat %>, lng: <%= @heartbeat.lng %> },
+            map: map,
+            title: 'Heartbeat location',
+            label: "💛"
+          });
+        <% end %>
+      }
+    </script>
+  <% end %>
+  <%= f.actions %>
+<% end %>
