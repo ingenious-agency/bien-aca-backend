@@ -42,6 +42,7 @@ gem 'devise'
 gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
 gem 'rubocop-rspec', require: false
+gem 'simplecov', require: false, group: :test
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -40,3 +40,5 @@ yarn-debug.log*
 # Miscellaneous
 .history/
 .vscode/
+
+coverage/
