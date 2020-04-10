@@ -19,7 +19,7 @@ class User < ApplicationRecord
   validates :password,
             length: { minimum: 6 },
             if: -> { new_record? || !password.nil? }
-  
+
   scope :outside_fence, -> { where(within_fence: false) }
   scope :not_authenticated, -> { where(last_authentication: false) }
 end
