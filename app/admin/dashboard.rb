@@ -4,10 +4,21 @@ ActiveAdmin.register_page 'Dashboard' do
   menu priority: 1, label: proc { I18n.t('active_admin.dashboard') }
 
   content title: proc { I18n.t('active_admin.dashboard') } do
-    div class: 'blank_slate_container', id: 'dashboard_default_message' do
-      span class: 'blank_slate' do
-        span I18n.t('active_admin.dashboard_welcome.welcome')
-        small I18n.t('active_admin.dashboard_welcome.call_to_action')
+    columns do
+      column do
+        panel 'Users outside the fence' do
+          table_for User.outside_fence.order('updated_at') do
+            column('Name') { |user| link_to(user.name, admin_user_path(user)) }
+          end
+        end
+      end
+
+      column do
+        panel 'Users noot authenticated' do
+          table_for User.not_authenticated.order('updated_at') do
+            column('Name') { |user| link_to(user.name, admin_user_path(user)) }
+          end
+        end
       end
     end
   end
