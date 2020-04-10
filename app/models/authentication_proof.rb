@@ -4,7 +4,6 @@ class AuthenticationProof < ApplicationRecord
   belongs_to :user
 
   validates :time, presence: true
-  validates :authenticated, presence: true
 
   after_save :update_user
 
