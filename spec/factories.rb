@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :authentication_proof do
+    association :user, factory: :user
+    time { '2020-04-10 15:12:26' }
+    authenticated { false }
+  end
+
   factory :heartbeat do
     association :user, factory: :user
     time { Time.zone.now }

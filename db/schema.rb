@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_10_180120) do
+ActiveRecord::Schema.define(version: 2020_04_10_181226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 2020_04_10_180120) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "authentication_proofs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "time"
+    t.boolean "authenticated"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_authentication_proofs_on_user_id"
+  end
+
   create_table "heartbeats", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "time", null: false
@@ -69,7 +78,9 @@ ActiveRecord::Schema.define(version: 2020_04_10_180120) do
     t.decimal "lng", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "last_authentication", default: false
   end
 
+  add_foreign_key "authentication_proofs", "users"
   add_foreign_key "heartbeats", "users"
 end

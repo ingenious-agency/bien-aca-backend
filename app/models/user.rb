@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_secure_password
   acts_as_mappable
   has_many :heartbeats, dependent: :restrict_with_exception
+  has_many :authentication_proofs, dependent: :restrict_with_exception
 
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }

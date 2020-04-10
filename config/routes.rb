@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[create] do
     resources :heartbeats, only: %i[create]
+    resources :authentication_proofs, only: %i[create]
   end
 
   post '/auth/login', to: 'authentication#login'
