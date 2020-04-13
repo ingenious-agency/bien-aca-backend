@@ -16,7 +16,7 @@ Nuestra solución utiliza el análisis biométrico para certificar y asegurar qu
 3. De no regresar a la zona establecida dentro del tiempo elegido por el prestador, una alerta es enviada: primero al usuario y luego al al centro de control.
 4. Adicionalmente y varias veces al día de forma randómica, la aplicación pide al usuario certifique su identidad mediante sensor biométrico, en este caso, huella dactilar.
 5. De no verificar identidad, se envía una alerta al centro de control.
- 
+
 *El sistema ha sido diseñado para desalentar las acciones no deseadas y minimizar el trabajo de los centros de control: cada vez que una alerta es enviada, es el usuario mismo quien recibe una notificación a modo de aviso previo en su dispositivo, ahorrando tiempo, esfuerzo y dinero a los prestadores.*
 
 ### Qué tenemos implementado Mobile
@@ -51,6 +51,15 @@ Creemos en **BienAcá** como una solución integral, de implementación rápida 
 **Gestión y verificación de Permisos de salida** | Una vez que un individuo es inmune a la enfermedad y es seguro que retorne al trabajo, se le adjudica un certificado digital vinculado a la prueba clínica que lo habilita a volver a circular libremente.
 
 **Luego de la crisis sanitaria puede ser utilizada para medidas cautelares de bajo riesgo** como la prohibición de asistir determinadas reuniones, recintos o espectáculos públicos, o de visitar determinados lugares o de aproximarse a ciertas personas.
+
+## Screens :tv:
+![splash-screen](images/splash-screen.jpg)
+![registration-screen](images/register.jpg)
+![success-screen](images/success-screen.jpg)
+![inner-page-screen](images/inner-page.jpg)
+![alert-page-biometrics](images/alert-page-biometrics.jpg)
+![alert-page-not-authenticated](images/alert-page-not-authenticated.jpg)
+![alert-page-out-of-zone](images/alert-page-out-of-zone.jpg)
 
 # Actuemos juntos!
 [<img src="images/footer.png">](https://www.ingsw.com/)
