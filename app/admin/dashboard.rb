@@ -14,8 +14,16 @@ ActiveAdmin.register_page 'Dashboard' do
       end
 
       column do
-        panel 'Users noot authenticated' do
+        panel 'Users not authenticated' do
           table_for User.not_authenticated.order('updated_at') do
+            column('Name') { |user| link_to(user.name, admin_user_path(user)) }
+          end
+        end
+      end
+
+      column do
+        panel 'Users without contact' do
+          table_for User.lost_contact do
             column('Name') { |user| link_to(user.name, admin_user_path(user)) }
           end
         end
