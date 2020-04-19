@@ -7,15 +7,16 @@ class User < ApplicationRecord
   has_many :heartbeats, dependent: :restrict_with_exception
   has_many :authentication_proofs, dependent: :restrict_with_exception
   
-  def self.lost_contact
-    User.includes(:heartbeats).map do |user|
-      heartbeat = user.heartbeats.order(time: :desc).first
-      [user, heartbeat]
+  def has_lost_contact
+    heartbeat = Heartbeat.where(user_id: self.id).order(time: :desc).limit(1).first
+    if heartbeat.nil? || heartbeat.time < 1.hour.ago
+      return self
     end
-    .select do |arr|
-      return arr[0] if arr[1].nil? # If user never sent a heartbeat
-      
-      arr[1].time < 1.hour.ago
+  end
+
+  def self.lost_contact
+    User.select do |user|
+      user.has_lost_contact
     end
   end
 
