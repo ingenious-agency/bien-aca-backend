@@ -6,6 +6,19 @@ class User < ApplicationRecord
   acts_as_mappable
   has_many :heartbeats, dependent: :restrict_with_exception
   has_many :authentication_proofs, dependent: :restrict_with_exception
+  
+  def has_lost_contact
+    heartbeat = Heartbeat.where(user_id: self.id).order(time: :desc).limit(1).first
+    if heartbeat.nil? || heartbeat.time < 1.hour.ago
+      return self
+    end
+  end
+
+  def self.lost_contact
+    User.select do |user|
+      user.has_lost_contact
+    end
+  end
 
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
@@ -17,9 +30,9 @@ class User < ApplicationRecord
   validates :lat, presence: true
   validates :lng, presence: true
   validates :password,
-            length: { minimum: 6 },
-            if: -> { new_record? || !password.nil? }
-
+  length: { minimum: 6 },
+  if: -> { new_record? || !password.nil? }
+  
   scope :outside_fence, -> { where(within_fence: false) }
   scope :not_authenticated, -> { where(last_authentication: false) }
 end
